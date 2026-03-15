@@ -11,30 +11,26 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
-    href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@700;800;900&display=swap"
+    href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap"
     rel="stylesheet"
   />
   <style>
     :root {
-      --bg: #0f1115;
-      --bg-page: #080a0d;
-      --surf: rgba(255, 255, 255, 0.05);
-      --surf2: rgba(255, 255, 255, 0.09);
-      --border: rgba(255, 255, 255, 0.13);
-      --text: #f9faf7;
-      --muted: #9ca3af;
-      --dim: #6b7280;
-      --green: #a3e635;
-      --lbl: #a3e635;
-      --coral: #ff5c5c;
-      --orange: #ffa500;
-      --blue: #60a5fa;
-      --card-bg: rgba(255, 255, 255, 0.04);
-      --input-bg: rgba(255, 255, 255, 0.07);
-      --warn-bg: #1e1608;
-      --warn-tx: #ffa500;
-      --r: 16px;
-      --br: 1.5px;
+      --bg: #0F1115;
+      --bg-page: #080A0D;
+      --surf: rgba(255,255,255,0.05);
+      --surf2: rgba(255,255,255,0.09);
+      --border: rgba(255,255,255,0.13);
+      --text: #F9FAF7;
+      --muted: #9CA3AF;
+      --dim: #6B7280;
+      --green: #A3E635;
+      --coral: #FF5C5C;
+      --orange: #FFA500;
+      --card-bg: rgba(255,255,255,0.04);
+      --warn-bg: #1E1608;
+      --div: rgba(255,255,255,0.09);
+      --radius: 10px;
       --max: 1240px;
     }
 
@@ -51,6 +47,7 @@
       background: var(--bg-page);
       color: var(--text);
       font-family: "DM Sans", sans-serif;
+      font-size: 16px;
       line-height: 1.65;
       -webkit-font-smoothing: antialiased;
       text-rendering: optimizeLegibility;
@@ -58,839 +55,614 @@
 
     a {
       color: var(--text);
+      text-decoration-thickness: 1px;
       text-underline-offset: 3px;
     }
 
-    img {
-      max-width: 100%;
-      display: block;
-    }
-
-    .shell {
-      position: relative;
-      overflow: hidden;
-      min-height: 100vh;
-      isolation: isolate;
-    }
-
-    .shape {
-      position: fixed;
-      border: var(--br) solid var(--border);
-      opacity: 0.32;
-      pointer-events: none;
-      z-index: 0;
-    }
-
-    .shape-a {
-      width: 240px;
-      height: 240px;
-      top: 32px;
-      right: -60px;
-      transform: rotate(14deg);
-    }
-
-    .shape-b {
-      width: 160px;
-      height: 160px;
-      bottom: 18vh;
-      left: -50px;
-      transform: rotate(-18deg);
-    }
-
-    .shape-c {
-      width: 110px;
-      height: 110px;
-      top: 52vh;
-      right: 9vw;
-      border-color: rgba(163, 230, 53, 0.25);
-    }
-
-    .container {
-      position: relative;
-      z-index: 1;
+    .page {
       width: min(calc(100% - 32px), var(--max));
       margin: 0 auto;
-      padding: 24px 0 72px;
+      padding: 20px 0 48px;
     }
 
     .topbar {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 14px;
-      margin-bottom: 22px;
-      padding: 12px 0;
+      gap: 16px;
+      padding: 14px 0 18px;
+      border-bottom: 1px solid var(--div);
     }
 
     .brand {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      min-width: 0;
-    }
-
-    .brand-mark {
-      width: 16px;
-      height: 16px;
-      background: var(--green);
-      border: var(--br) solid var(--green);
-      flex: 0 0 auto;
-    }
-
-    .brand-text {
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      color: var(--lbl);
-      white-space: nowrap;
-    }
-
-    .status-chip {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      min-height: 34px;
-      padding: 0 14px;
-      border-radius: 8px;
-      border: var(--br) solid var(--border);
-      background: var(--input-bg);
-      color: var(--muted);
-      font-size: 12px;
-      font-weight: 600;
-    }
-
-    .status-chip strong {
-      color: var(--text);
-      font-weight: 700;
-    }
-
-    .hero {
-      display: grid;
-      grid-template-columns: 1.25fr 0.75fr;
-      gap: 14px;
-      margin-bottom: 16px;
-    }
-
-    .card {
-      background: var(--card-bg);
-      border: var(--br) solid var(--border);
-      border-radius: var(--r);
-    }
-
-    .hero-main,
-    .hero-side,
-    .policy-card,
-    .toc,
-    .quick-facts,
-    .contact-box,
-    .notice-box {
-      padding: 18px 20px;
-    }
-
-    .eyebrow {
-      margin: 0 0 14px;
-      color: var(--lbl);
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-    }
-
-    .headline {
-      margin: 0;
-      font-family: "Playfair Display", serif;
-      font-size: clamp(34px, 6vw, 64px);
-      line-height: 0.97;
-      font-weight: 800;
-      max-width: 10ch;
-    }
-
-    .lede {
-      max-width: 58ch;
-      margin: 18px 0 0;
-      color: var(--muted);
       font-size: 16px;
+      font-weight: 700;
+      letter-spacing: 0.2px;
     }
 
-    .hero-grid {
+    .topbar-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .topbar-links a {
+      color: var(--muted);
+      text-decoration: none;
+    }
+
+    .topbar-links a:hover,
+    .topbar-links a:focus-visible {
+      color: var(--text);
+      outline: none;
+    }
+
+    .panel {
+      background: var(--card-bg);
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius);
+    }
+
+    .intro {
+      display: grid;
+      grid-template-columns: minmax(0, 1.35fr) minmax(280px, 0.65fr);
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .intro-main,
+    .intro-side,
+    .doc,
+    .aside-panel {
+      padding: 20px;
+    }
+
+    h1 {
+      margin: 0 0 10px;
+      font-size: clamp(32px, 5vw, 48px);
+      line-height: 1.02;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+    }
+
+    h2 {
+      margin: 0 0 10px;
+      font-size: 24px;
+      line-height: 1.1;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    h3 {
+      margin: 0 0 8px;
+      font-size: 14px;
+      line-height: 1.3;
+      font-weight: 700;
+    }
+
+    p {
+      margin: 0 0 14px;
+      color: var(--muted);
+    }
+
+    p:last-child {
+      margin-bottom: 0;
+    }
+
+    .intro-main p {
+      max-width: 62ch;
+    }
+
+    .meta-row {
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: 10px;
-      margin-top: 22px;
+      margin-top: 18px;
     }
 
-    .metric {
-      border: var(--br) solid var(--border);
-      border-radius: 12px;
+    .meta-box {
       padding: 14px;
+      border: 1px solid var(--div);
+      border-radius: 8px;
       background: var(--surf);
-      min-height: 110px;
     }
 
-    .metric-label {
-      margin: 0 0 8px;
+    .meta-box strong {
+      display: block;
+      margin-bottom: 6px;
+      color: var(--text);
+      font-size: 14px;
+    }
+
+    .meta-box span {
       color: var(--muted);
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 1.6px;
-      text-transform: uppercase;
+      font-size: 14px;
     }
 
-    .metric-value {
-      margin: 0;
-      font-family: "Playfair Display", serif;
-      font-size: 28px;
-      font-weight: 800;
-      line-height: 1;
-      color: var(--green);
+    .intro-side {
+      display: grid;
+      gap: 12px;
+      align-content: start;
     }
 
-    .metric-copy {
-      margin: 10px 0 0;
+    .status-list {
+      display: grid;
+      gap: 10px;
+    }
+
+    .status-item {
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--div);
+    }
+
+    .status-item:last-child {
+      padding-bottom: 0;
+      border-bottom: 0;
+    }
+
+    .status-label {
+      display: block;
+      margin-bottom: 4px;
       color: var(--muted);
       font-size: 13px;
-      line-height: 1.5;
     }
 
-    .hero-side {
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      gap: 14px;
-    }
-
-    .kicker {
-      margin: 0;
-      color: var(--muted);
-      font-size: 12px;
-      font-weight: 700;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-    }
-
-    .hero-side p {
-      margin: 0;
-    }
-
-    .hero-side .amount {
-      font-family: "Playfair Display", serif;
-      font-size: 32px;
-      font-weight: 800;
+    .status-value {
       color: var(--text);
+      font-weight: 700;
     }
 
-    .hero-side .amount.accent {
+    .status-value.accent {
       color: var(--green);
     }
 
-    .hero-side .amount.info {
-      color: var(--blue);
-    }
-
-    .hero-side-copy {
-      color: var(--muted);
-      font-size: 14px;
-    }
-
-    .info-box {
-      display: flex;
-      gap: 10px;
-      align-items: flex-start;
-      border-radius: 12px;
-      border: var(--br) solid rgba(163, 230, 53, 0.2);
-      background: rgba(163, 230, 53, 0.06);
-      padding: 12px 14px;
+    .callout {
+      border-left: 3px solid var(--green);
+      padding: 12px 0 12px 12px;
       color: var(--text);
       font-size: 14px;
-    }
-
-    .info-dot {
-      width: 6px;
-      height: 6px;
-      margin-top: 8px;
-      border-radius: 3px;
-      flex: 0 0 auto;
-      background: var(--green);
     }
 
     .layout {
       display: grid;
-      grid-template-columns: 300px minmax(0, 1fr);
-      gap: 14px;
+      grid-template-columns: minmax(0, 1fr) 300px;
+      gap: 12px;
+      margin-top: 12px;
       align-items: start;
-      margin-top: 10px;
     }
 
-    .sidebar {
-      position: sticky;
-      top: 20px;
-      display: grid;
-      gap: 14px;
+    .doc {
+      padding-top: 6px;
     }
 
-    .toc h2,
-    .quick-facts h2,
-    .contact-box h2 {
-      margin: 0 0 14px;
-      font-family: "Playfair Display", serif;
-      font-size: 24px;
-      line-height: 1.05;
-      font-weight: 800;
+    .section {
+      padding: 18px 0;
+      border-top: 1px solid var(--div);
     }
 
-    .toc nav {
-      display: grid;
-      gap: 8px;
-    }
-
-    .toc a {
-      display: block;
-      padding: 10px 12px;
-      border-radius: 10px;
-      border: var(--br) solid transparent;
-      color: var(--muted);
-      text-decoration: none;
-      transition: color 180ms ease, border-color 180ms ease, background-color 180ms ease, transform 180ms ease;
-    }
-
-    .toc a:hover,
-    .toc a:focus-visible {
-      color: var(--text);
-      border-color: var(--border);
-      background: var(--surf);
-      transform: translateX(3px);
-      outline: none;
-    }
-
-    .quick-facts ul,
-    .contact-box ul {
-      margin: 0;
-      padding: 0;
-      list-style: none;
-      display: grid;
-      gap: 10px;
-    }
-
-    .quick-facts li,
-    .contact-box li {
-      padding: 12px 0;
-      border-top: 1px solid rgba(255, 255, 255, 0.09);
-      color: var(--muted);
-      font-size: 14px;
-    }
-
-    .quick-facts li:first-child,
-    .contact-box li:first-child {
+    .section:first-child {
       border-top: 0;
       padding-top: 0;
     }
 
-    .quick-facts strong,
-    .contact-box strong {
+    .section-title {
+      margin-bottom: 10px;
       color: var(--text);
-      font-weight: 700;
     }
 
-    .main {
-      display: grid;
-      gap: 12px;
+    .section-title span {
+      color: var(--green);
+      margin-right: 8px;
     }
 
-    .policy-card {
-      scroll-margin-top: 18px;
-    }
-
-    .policy-card h2 {
-      margin: 0 0 10px;
-      font-family: "Playfair Display", serif;
-      font-size: 32px;
-      line-height: 1;
-      font-weight: 800;
-    }
-
-    .policy-card p,
-    .policy-card li {
-      font-size: 16px;
+    ul {
+      margin: 0;
+      padding-left: 20px;
       color: var(--muted);
     }
 
-    .policy-card p strong,
-    .policy-card li strong {
+    li + li {
+      margin-top: 8px;
+    }
+
+    strong {
       color: var(--text);
       font-weight: 700;
     }
 
-    .policy-card ul {
-      margin: 16px 0 0;
-      padding-left: 18px;
-    }
-
-    .policy-card li + li {
-      margin-top: 10px;
-    }
-
-    .policy-card .subgrid {
+    .two-col {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 10px;
-      margin-top: 16px;
+      margin-top: 14px;
     }
 
-    .mini {
-      border: var(--br) solid var(--border);
-      border-radius: 12px;
-      background: var(--surf);
+    .mini-card {
       padding: 14px;
+      border: 1px solid var(--div);
+      border-radius: 8px;
+      background: var(--surf);
     }
 
-    .mini h3 {
-      margin: 0 0 8px;
-      font-size: 12px;
-      font-weight: 700;
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
-      color: var(--lbl);
-    }
-
-    .mini p {
+    .mini-card p {
       margin: 0;
       font-size: 14px;
     }
 
-    .notice-box {
-      display: flex;
-      gap: 10px;
-      align-items: flex-start;
-      border-radius: 12px;
-      border: var(--br) solid rgba(96, 165, 250, 0.2);
-      background: rgba(96, 165, 250, 0.06);
-      margin-top: 14px;
+    .aside {
+      display: grid;
+      gap: 12px;
     }
 
-    .notice-box.warning {
-      border-color: rgba(255, 165, 0, 0.22);
+    .aside-panel ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .aside-panel li {
+      padding: 10px 0;
+      border-top: 1px solid var(--div);
+      margin: 0;
+    }
+
+    .aside-panel li:first-child {
+      border-top: 0;
+      padding-top: 0;
+    }
+
+    .muted {
+      color: var(--muted);
+    }
+
+    .warning {
       background: var(--warn-bg);
+      border-color: rgba(255,165,0,0.22);
     }
 
-    .notice-dot {
-      width: 6px;
-      height: 6px;
-      margin-top: 8px;
-      border-radius: 3px;
-      flex: 0 0 auto;
-      background: var(--blue);
+    .warning p {
+      color: var(--text);
     }
 
-    .notice-box.warning .notice-dot {
-      background: var(--orange);
+    .footer-note {
+      margin-top: 16px;
+      padding: 16px 20px;
+      font-size: 14px;
+      color: var(--muted);
     }
 
-    .footer {
-      margin-top: 14px;
-      padding: 18px 20px 0;
-      color: var(--dim);
-      font-size: 13px;
-    }
-
-    .reveal {
-      opacity: 0;
-      transform: translateY(14px);
-      animation: rise 440ms cubic-bezier(.16, 1, .3, 1) forwards;
-    }
-
-    .reveal.d1 { animation-delay: 70ms; }
-    .reveal.d2 { animation-delay: 140ms; }
-    .reveal.d3 { animation-delay: 210ms; }
-    .reveal.d4 { animation-delay: 280ms; }
-
-    @keyframes rise {
-      to {
-        opacity: 1;
-        transform: translateY(0);
+    @media (prefers-reduced-motion: no-preference) {
+      .panel {
+        animation: fadein 180ms ease;
       }
     }
 
-    @media (max-width: 1080px) {
-      .hero,
+    @keyframes fadein {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+
+    @media (max-width: 980px) {
+      .intro,
       .layout {
         grid-template-columns: 1fr;
       }
 
-      .sidebar {
-        position: static;
-      }
-
-      .headline {
-        max-width: none;
+      .aside {
+        order: -1;
       }
     }
 
     @media (max-width: 720px) {
-      .container {
+      .page {
         width: min(calc(100% - 20px), var(--max));
-        padding-top: 16px;
-        padding-bottom: 52px;
+        padding-top: 14px;
+        padding-bottom: 32px;
       }
 
       .topbar {
-        align-items: flex-start;
         flex-direction: column;
+        align-items: flex-start;
       }
 
-      .hero-grid,
-      .policy-card .subgrid {
+      .meta-row,
+      .two-col {
         grid-template-columns: 1fr;
       }
 
-      .headline {
-        font-size: 40px;
+      .intro-main,
+      .intro-side,
+      .doc,
+      .aside-panel {
+        padding: 16px;
       }
 
-      .policy-card h2 {
-        font-size: 28px;
+      h1 {
+        font-size: 34px;
+      }
+
+      h2 {
+        font-size: 22px;
       }
     }
   </style>
 </head>
 <body>
-  <div class="shell">
-    <div class="shape shape-a"></div>
-    <div class="shape shape-b"></div>
-    <div class="shape shape-c"></div>
+  <main class="page">
+    <header class="topbar">
+      <div class="brand">Wiserflo</div>
+      <div class="topbar-links">
+        <a href="#collection">What we collect</a>
+        <a href="#backup">Google Drive backup</a>
+        <a href="#choices">Your choices</a>
+        <a href="mailto:wiserflo@gmail.com">wiserflo@gmail.com</a>
+      </div>
+    </header>
 
-    <main class="container">
-      <header class="topbar reveal">
-        <div class="brand">
-          <span class="brand-mark" aria-hidden="true"></span>
-          <span class="brand-text">Wiserflo Privacy Policy</span>
+    <section class="intro">
+      <section class="panel intro-main">
+        <h1>Privacy Policy</h1>
+        <p>
+          This Privacy Policy explains how Wiserflo handles information when you use the app.
+          Wiserflo is designed as a local-first budgeting app. In the current version, your
+          financial records are mainly stored on your device, and optional cloud access only
+          happens if you choose to use Google Drive backup or restore.
+        </p>
+        <p>
+          Wiserflo is built to help people manage real financial pressure with clarity and care.
+          That includes being direct about what the app stores, what it sends off-device, and
+          what remains fully under your control.
+        </p>
+
+        <div class="meta-row">
+          <div class="meta-box">
+            <strong>Storage</strong>
+            <span>Core data stays on your device.</span>
+          </div>
+          <div class="meta-box">
+            <strong>Cloud use</strong>
+            <span>Optional Google Drive backup only.</span>
+          </div>
+          <div class="meta-box">
+            <strong>Data sales</strong>
+            <span>Wiserflo does not sell your data.</span>
+          </div>
         </div>
-        <div class="status-chip">
-          <span>Last updated</span>
-          <strong>March 15, 2026</strong>
-        </div>
-      </header>
-
-      <section class="hero">
-        <article class="card hero-main reveal d1">
-          <p class="eyebrow">Local-First By Design</p>
-          <h1 class="headline">Your money data stays with you first.</h1>
-          <p class="lede">
-            Wiserflo is built to help people manage real financial pressure without shame. The current
-            version of the app stores your budgeting data on your device, can send reminders if you turn
-            them on, and only connects to Google Drive if you choose backup or restore.
-          </p>
-
-          <div class="hero-grid">
-            <section class="metric">
-              <p class="metric-label">Core Storage</p>
-              <p class="metric-value">On Device</p>
-              <p class="metric-copy">Bills, debts, income, savings, and spending records are stored locally on your phone.</p>
-            </section>
-
-            <section class="metric">
-              <p class="metric-label">Cloud Access</p>
-              <p class="metric-value">Optional</p>
-              <p class="metric-copy">Google Drive backup happens only if you connect a Google account and choose to use it.</p>
-            </section>
-
-            <section class="metric">
-              <p class="metric-label">Selling Data</p>
-              <p class="metric-value">Never</p>
-              <p class="metric-copy">Wiserflo does not sell your personal data and does not run advertising in the current version.</p>
-            </section>
-          </div>
-        </article>
-
-        <aside class="card hero-side reveal d2">
-          <div>
-            <p class="kicker">Current Version</p>
-            <p class="amount accent">No backend</p>
-            <p class="hero-side-copy">
-              Wiserflo does not currently run its own cloud account system, sync server, or advertising stack.
-            </p>
-          </div>
-
-          <div>
-            <p class="kicker">Optional Connection</p>
-            <p class="amount info">Google Drive</p>
-            <p class="hero-side-copy">
-              Used only for backup and restore if you choose to connect it.
-            </p>
-          </div>
-
-          <div class="info-box" role="note" aria-label="Quick privacy summary">
-            <span class="info-dot" aria-hidden="true"></span>
-            <div>
-              You can keep using Wiserflo without connecting Google Drive. Core budgeting features work without creating an account.
-            </div>
-          </div>
-        </aside>
       </section>
 
-      <div class="layout">
-        <aside class="sidebar">
-          <section class="card toc reveal d2">
-            <h2>Contents</h2>
-            <nav aria-label="Privacy Policy sections">
-              <a href="#who-we-are">1. Who We Are</a>
-              <a href="#what-we-collect">2. Information We Collect</a>
-              <a href="#how-we-use">3. How We Use Information</a>
-              <a href="#google-drive">4. Google Drive Backup</a>
-              <a href="#notifications">5. Notifications</a>
-              <a href="#sharing">6. Sharing And Disclosure</a>
-              <a href="#retention">7. Data Retention</a>
-              <a href="#security">8. Security</a>
-              <a href="#your-choices">9. Your Choices</a>
-              <a href="#children">10. Children’s Privacy</a>
-              <a href="#changes">11. Changes To This Policy</a>
-              <a href="#contact">12. Contact Us</a>
-            </nav>
-          </section>
+      <aside class="panel intro-side">
+        <div class="status-list">
+          <div class="status-item">
+            <span class="status-label">Operator</span>
+            <div class="status-value">Wiserflo Labs</div>
+          </div>
+          <div class="status-item">
+            <span class="status-label">Last updated</span>
+            <div class="status-value">March 15, 2026</div>
+          </div>
+          <div class="status-item">
+            <span class="status-label">Current product model</span>
+            <div class="status-value accent">Local-first, no backend accounts</div>
+          </div>
+        </div>
 
-          <section class="card quick-facts reveal d3">
-            <h2>Quick Facts</h2>
-            <ul>
-              <li><strong>App name:</strong> Wiserflo</li>
-              <li><strong>Operator:</strong> Fahan</li>
-              <li><strong>Platform:</strong> Android</li>
-              <li><strong>Main data location:</strong> your device</li>
-              <li><strong>Optional cloud feature:</strong> Google Drive app data backup</li>
-              <li><strong>Support:</strong> wiserflo@gmail.com</li>
-            </ul>
-          </section>
+        <div class="callout">
+          You can use Wiserflo without connecting Google Drive. Backup is optional, not required for normal budgeting features.
+        </div>
+      </aside>
+    </section>
 
-          <section class="card contact-box reveal d4">
-            <h2>Need Help?</h2>
-            <ul>
-              <li><strong>General support:</strong> wiserflo@gmail.com</li>
-              <li><strong>Privacy questions:</strong> wiserflo@gmail.com</li>
-              <li><strong>Mailing address:</strong> wiserflo@gmail.com</li>
-            </ul>
-          </section>
-        </aside>
-
-        <section class="main" aria-label="Privacy Policy content">
-          <article class="card policy-card reveal d1" id="who-we-are">
-            <p class="eyebrow">Section 1</p>
-            <h2>Who We Are</h2>
-            <p>
-              This Privacy Policy explains how <strong>Wiserflo Labs</strong> operates the Wiserflo app and how
-              information is handled when you use it. Wiserflo is a budgeting and financial-planning app designed
-              to help people track bills, debts, income, savings, and spending in a calmer and more practical way.
-            </p>
-            <p>
-              In the current version, Wiserflo is primarily a <strong>local-first app</strong>. That means your core
-              financial records are stored on your device unless you choose to export them or back them up using an
-              optional feature such as Google Drive backup.
-            </p>
-          </article>
-
-          <article class="card policy-card reveal d2" id="what-we-collect">
-            <p class="eyebrow">Section 2</p>
-            <h2>Information We Collect</h2>
-            <p>We collect and handle information in the following categories:</p>
-
-            <div class="subgrid">
-              <div class="mini">
-                <h3>Information You Enter</h3>
-                <p>
-                  Bills, due dates, debt records, income entries, savings goals, spending logs, and other financial planning data you choose to add inside Wiserflo.
-                </p>
-              </div>
-              <div class="mini">
-                <h3>Device-Stored App Data</h3>
-                <p>
-                  App settings, reminder preferences, budget calculations, notification inbox entries, and backup preferences stored on your device.
-                </p>
-              </div>
-              <div class="mini">
-                <h3>Google Account Details</h3>
-                <p>
-                  If you connect Google Drive backup, Wiserflo may access your Google account email, account ID, and display name to complete backup and restore.
-                </p>
-              </div>
-              <div class="mini">
-                <h3>Backup Files</h3>
-                <p>
-                  If you use Google Drive backup, a backup copy of your local database may be stored in your Google Drive app data area.
-                </p>
-              </div>
-            </div>
-
-            <div class="notice-box" role="note">
-              <span class="notice-dot" aria-hidden="true"></span>
-              <div>
-                <strong>No ads, no sale of data.</strong> Wiserflo does not currently include third-party advertising SDKs and does not sell your personal information.
-              </div>
-            </div>
-          </article>
-
-          <article class="card policy-card reveal d3" id="how-we-use">
-            <p class="eyebrow">Section 3</p>
-            <h2>How We Use Information</h2>
-            <p>We use information only to operate and improve Wiserflo’s features, including to:</p>
-            <ul>
-              <li>store and display your budgeting, debt, savings, and spending information inside the app;</li>
-              <li>calculate budgeting summaries, monthly allocation, safe-to-spend amounts, and other planning views;</li>
-              <li>schedule reminders and notifications if you turn them on;</li>
-              <li>create backup exports or restore data when you request those actions;</li>
-              <li>connect to your Google Drive account if you choose backup or restore through Google Drive; and</li>
-              <li>respond to support, bug, or privacy requests if you contact us.</li>
-            </ul>
-            <p>
-              We do <strong>not</strong> use your budgeting data to profile you for ads, sell it to data brokers, or
-              build a separate marketing database from your financial records.
-            </p>
-          </article>
-
-          <article class="card policy-card reveal d4" id="google-drive">
-            <p class="eyebrow">Section 4</p>
-            <h2>Google Drive Backup</h2>
-            <p>
-              Wiserflo offers an optional Google Drive backup and restore feature. If you choose to use it, the app
-              requests access to your Google account for the limited purpose of saving and restoring your backup in
-              your Google Drive <strong>app data folder</strong>.
-            </p>
-            <ul>
-              <li>Your Google account is connected only when you choose to use the Google Drive backup feature.</li>
-              <li>Wiserflo may access your <strong>Google account email, account ID, and display name</strong> to identify the connected account.</li>
-              <li>Your backup file may contain the data you entered into Wiserflo, including financial entries and app settings required for restore.</li>
-              <li>The backup is stored in Google Drive’s app data area, which is generally hidden from the normal Drive file list.</li>
-              <li>Google’s handling of data in your Google account is also subject to Google’s own privacy terms and policies.</li>
-            </ul>
-
-            <div class="notice-box warning" role="note">
-              <span class="notice-dot" aria-hidden="true"></span>
-              <div>
-                <strong>Important:</strong> If you export or back up your data to a third-party service, that copy is no longer only on your device. The privacy and security of that copy also depend on the service you chose to use.
-              </div>
-            </div>
-          </article>
-
-          <article class="card policy-card" id="notifications">
-            <p class="eyebrow">Section 5</p>
-            <h2>Notifications</h2>
-            <p>
-              If you allow notifications, Wiserflo can send reminders such as bill reminders, debt reminders, or
-              other planning notifications. Notification content may appear on your lock screen or in your device’s
-              notification tray depending on your phone settings.
-            </p>
-            <ul>
-              <li>You can disable or change reminder settings inside the app.</li>
-              <li>You can also manage notification permission in your Android system settings.</li>
-              <li>If notifications are visible on your lock screen, people with access to your device may be able to see reminder content.</li>
-            </ul>
-          </article>
-
-          <article class="card policy-card" id="sharing">
-            <p class="eyebrow">Section 6</p>
-            <h2>Sharing And Disclosure</h2>
-            <p>We do not sell your personal information. We do not share your financial data except in the following limited situations:</p>
-            <ul>
-              <li><strong>At your direction:</strong> when you choose to export, share, back up, or restore data.</li>
-              <li><strong>Service providers you choose to use:</strong> such as Google Drive for optional backup and restore.</li>
-              <li><strong>Legal reasons:</strong> if required by law, regulation, legal process, or valid government request.</li>
-              <li><strong>Protection and safety:</strong> when reasonably necessary to protect rights, safety, or prevent fraud or abuse.</li>
-            </ul>
-            <p>
-              If you contact us by email for support, we will receive the information you send in that message and any
-              attachments you choose to include.
-            </p>
-          </article>
-
-          <article class="card policy-card" id="retention">
-            <p class="eyebrow">Section 7</p>
-            <h2>Data Retention</h2>
-            <p>
-              Because Wiserflo is local-first, your app data generally stays on your device until you edit it, delete
-              it, uninstall the app, or overwrite it through an import or restore.
-            </p>
-            <ul>
-              <li>Local data remains on your device unless removed by you or deleted as part of app/device removal.</li>
-              <li>If you create backups, those backups remain where you saved them until you remove them.</li>
-              <li>If you back up to Google Drive, the backup can remain in your Google account until it is replaced or deleted.</li>
-              <li>Support emails or bug reports may be retained for as long as reasonably necessary to respond and keep basic support records.</li>
-            </ul>
-          </article>
-
-          <article class="card policy-card" id="security">
-            <p class="eyebrow">Section 8</p>
-            <h2>Security</h2>
-            <p>
-              We take reasonable steps to protect information handled by the app, but no method of electronic storage,
-              transmission, or third-party cloud service is completely secure.
-            </p>
-            <ul>
-              <li>Core app data is stored locally on your device.</li>
-              <li>Your device security settings, lock screen security, backups, and account protections also matter.</li>
-              <li>If you use cloud backup, the security of that copy also depends on the security of your Google account and device.</li>
-            </ul>
-            <p>
-              You should use a device passcode, keep your OS updated, and protect the Google account you use for
-              backups with strong security settings.
-            </p>
-          </article>
-
-          <article class="card policy-card" id="your-choices">
-            <p class="eyebrow">Section 9</p>
-            <h2>Your Choices</h2>
-            <p>You can make the following choices at any time:</p>
-            <ul>
-              <li>stop using the app or uninstall it;</li>
-              <li>edit or delete entries inside Wiserflo;</li>
-              <li>turn reminders and notifications on or off;</li>
-              <li>choose whether to connect Google Drive backup;</li>
-              <li>change Google Drive accounts if you want to back up to a different account; and</li>
-              <li>delete exported files or backups you created.</li>
-            </ul>
-            <p>
-              If you want to ask a privacy question or request help, contact us at
-              <a href="mailto:privacy@wiserflo.app">privacy@wiserflo.app</a>.
-            </p>
-          </article>
-
-          <article class="card policy-card" id="children">
-            <p class="eyebrow">Section 10</p>
-            <h2>Children’s Privacy</h2>
-            <p>
-              Wiserflo is not directed to children under 13, and we do not knowingly design the app for children’s
-              use as a primary audience. If you believe a child has provided personal information through Wiserflo in
-              a way that requires review or deletion, contact us and we will review the request.
-            </p>
-          </article>
-
-          <article class="card policy-card" id="changes">
-            <p class="eyebrow">Section 11</p>
-            <h2>Changes To This Policy</h2>
-            <p>
-              We may update this Privacy Policy from time to time as Wiserflo changes. If we make material changes, we
-              will update the date at the top of this page and may also provide notice inside the app when appropriate.
-            </p>
-            <p>
-              Your continued use of Wiserflo after an updated Privacy Policy becomes effective means the updated policy
-              applies going forward.
-            </p>
-          </article>
-
-          <article class="card policy-card" id="contact">
-            <p class="eyebrow">Section 12</p>
-            <h2>Contact Us</h2>
-            <p>If you have questions about this Privacy Policy or how Wiserflo handles information, contact:</p>
-            <ul>
-              <li><strong>Wiserflo Labs</strong></li>
-              <li><strong>General support:</strong> <a href="mailto:support@wiserflo.app">support@wiserflo.app</a></li>
-              <li><strong>Privacy:</strong> <a href="mailto:privacy@wiserflo.app">privacy@wiserflo.app</a></li>
-              <li><strong>Address:</strong> Add your mailing address here if you want one listed publicly.</li>
-            </ul>
-          </article>
-
-          <footer class="footer">
-            This page is written for Wiserflo’s current local-first architecture as of March 15, 2026. If you later add accounts, cloud sync, analytics, subscriptions, or a backend service, this policy should be updated before release.
-          </footer>
+    <section class="layout">
+      <article class="panel doc">
+        <section class="section" id="who-we-are">
+          <h2 class="section-title"><span>1.</span>Who We Are</h2>
+          <p>
+            This Privacy Policy applies to the Wiserflo app operated by <strong>Wiserflo Labs</strong>.
+            Wiserflo helps users track bills, debts, income, savings, and spending in a practical,
+            lower-stress way.
+          </p>
+          <p>
+            In its current version, Wiserflo does not run a separate user account backend for core
+            budgeting features. Most information you enter is stored locally on your own device.
+          </p>
         </section>
-      </div>
-    </main>
-  </div>
+
+        <section class="section" id="collection">
+          <h2 class="section-title"><span>2.</span>Information We Collect</h2>
+          <p>Wiserflo may handle the following categories of information:</p>
+
+          <div class="two-col">
+            <div class="mini-card">
+              <h3>Information you enter</h3>
+              <p>
+                Bills, due dates, debt records, income entries, savings goals, spend logs, and related planning information you choose to add.
+              </p>
+            </div>
+            <div class="mini-card">
+              <h3>App settings</h3>
+              <p>
+                Preferences such as reminder settings, budget settings, backup preferences, and local app state.
+              </p>
+            </div>
+            <div class="mini-card">
+              <h3>Google account details</h3>
+              <p>
+                If you connect Google Drive backup, Wiserflo may access your Google account email, ID, and display name to complete backup and restore.
+              </p>
+            </div>
+            <div class="mini-card">
+              <h3>Backup files</h3>
+              <p>
+                If you export or back up data, the backup may include your budgeting records and settings needed to restore the app later.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <section class="section" id="use">
+          <h2 class="section-title"><span>3.</span>How We Use Information</h2>
+          <ul>
+            <li>To store and display the budgeting information you choose to enter.</li>
+            <li>To calculate budgeting summaries, monthly allocations, safe-to-spend values, reminders, and planning suggestions.</li>
+            <li>To create exports and backups when you request them.</li>
+            <li>To restore your information when you choose to import or restore a backup.</li>
+            <li>To operate optional Google Drive backup and restore.</li>
+            <li>To respond if you contact us for support, feedback, or privacy questions.</li>
+          </ul>
+          <p>
+            Wiserflo does <strong>not</strong> currently use your financial entries for advertising,
+            data brokerage, or third-party marketing profiling.
+          </p>
+        </section>
+
+        <section class="section" id="backup">
+          <h2 class="section-title"><span>4.</span>Google Drive Backup</h2>
+          <p>
+            Wiserflo offers an optional Google Drive backup feature. If you choose to use it, the app
+            connects to your Google account for the limited purpose of saving or restoring your Wiserflo
+            backup file.
+          </p>
+          <ul>
+            <li>Google Drive backup is optional.</li>
+            <li>Wiserflo may access your Google account email, account ID, and display name when you connect this feature.</li>
+            <li>Backup files may contain your local Wiserflo data, including financial records and app settings needed for restore.</li>
+            <li>The backup is stored in your Google Drive app data area.</li>
+            <li>Google’s own privacy and security practices also apply to data stored in your Google account.</li>
+          </ul>
+        </section>
+
+        <section class="section" id="notifications">
+          <h2 class="section-title"><span>5.</span>Notifications</h2>
+          <p>
+            If you allow notifications, Wiserflo may send reminders such as bill reminders, debt reminders,
+            or other planning notifications based on your settings.
+          </p>
+          <ul>
+            <li>You can change or disable reminders in the app.</li>
+            <li>You can also manage notification permission in Android settings.</li>
+            <li>If notification previews appear on your lock screen, other people with access to your device may be able to see them.</li>
+          </ul>
+        </section>
+
+        <section class="section" id="sharing">
+          <h2 class="section-title"><span>6.</span>Sharing And Disclosure</h2>
+          <p>
+            Wiserflo does not sell your personal data. We only share information in limited situations:
+          </p>
+          <ul>
+            <li>When you choose to export, share, import, back up, or restore your data.</li>
+            <li>When you choose to use Google Drive backup.</li>
+            <li>If required by law, legal process, or a valid government request.</li>
+            <li>If reasonably necessary to protect rights, safety, or prevent abuse or fraud.</li>
+          </ul>
+        </section>
+
+        <section class="section" id="retention">
+          <h2 class="section-title"><span>7.</span>Data Retention</h2>
+          <p>
+            Since Wiserflo is local-first, your app data generally remains on your device until you edit it,
+            remove it, uninstall the app, or overwrite it through import or restore.
+          </p>
+          <ul>
+            <li>Local budgeting data stays on your device unless you remove it.</li>
+            <li>Exported files stay wherever you save or share them.</li>
+            <li>Google Drive backups remain in your Google account until deleted or replaced.</li>
+            <li>Support emails or bug reports may be retained for as long as reasonably necessary to respond and maintain support records.</li>
+          </ul>
+        </section>
+
+        <section class="section" id="security">
+          <h2 class="section-title"><span>8.</span>Security</h2>
+          <p>
+            We take reasonable steps to protect information handled by the app, but no storage system,
+            transmission method, or third-party cloud service can be guaranteed to be completely secure.
+          </p>
+          <ul>
+            <li>Wiserflo’s core records are stored locally on your device.</li>
+            <li>Your phone lock, OS updates, and account protections are an important part of your security.</li>
+            <li>If you use Google Drive backup, the protection of that copy also depends on the security of your Google account and device.</li>
+          </ul>
+        </section>
+
+        <section class="section" id="choices">
+          <h2 class="section-title"><span>9.</span>Your Choices</h2>
+          <ul>
+            <li>You can stop using the app or uninstall it.</li>
+            <li>You can edit or delete entries inside Wiserflo.</li>
+            <li>You can turn reminders on or off.</li>
+            <li>You can choose whether to use Google Drive backup.</li>
+            <li>You can switch Google accounts for backup if you want to use a different account.</li>
+            <li>You can delete exported files or backups you created.</li>
+          </ul>
+        </section>
+
+        <section class="section" id="children">
+          <h2 class="section-title"><span>10.</span>Children’s Privacy</h2>
+          <p>
+            Wiserflo is not directed to children under 13 as a primary audience. If you believe a child has
+            provided personal information in a way that requires review or deletion, contact us and we will
+            review the request.
+          </p>
+        </section>
+
+        <section class="section" id="changes">
+          <h2 class="section-title"><span>11.</span>Changes To This Policy</h2>
+          <p>
+            We may update this Privacy Policy as Wiserflo changes. If we make material changes, we will update
+            the date on this page and may also provide notice in the app when appropriate.
+          </p>
+        </section>
+
+        <section class="section" id="contact">
+          <h2 class="section-title"><span>12.</span>Contact Us</h2>
+          <p>If you have questions about this Privacy Policy or how Wiserflo handles information, contact:</p>
+          <ul>
+            <li><strong>Wiserflo Labs</strong></li>
+            <li><strong>General support:</strong> <a href="mailto:wiserflo@gmail.com">wiserflo@gmail.com</a></li>
+            <li><strong>Privacy:</strong> <a href="mailto:wiserflo@gmail.com">wiserflo@gmail.com</a></li>
+          </ul>
+        </section>
+      </article>
+
+      <aside class="aside">
+        <section class="panel aside-panel">
+          <h2>At a glance</h2>
+          <ul>
+            <li><strong>Core storage:</strong> on your device</li>
+            <li><strong>Accounts required:</strong> no</li>
+            <li><strong>Cloud sync:</strong> not in the current version</li>
+            <li><strong>Optional cloud backup:</strong> yes, Google Drive</li>
+            <li><strong>Advertising:</strong> not in the current version</li>
+            <li><strong>Data sale:</strong> no</li>
+          </ul>
+        </section>
+
+        <section class="panel aside-panel">
+          <h2>Contact</h2>
+          <ul>
+            <li><strong>Support:</strong> <a href="mailto:wiserflo@gmail.com">wiserflo@gmail.com</a></li>
+            <li><strong>Privacy:</strong> <a href="mailto:wiserflo@gmail.com">wiserflo@gmail.com</a></li>
+          </ul>
+        </section>
+
+        <section class="panel aside-panel warning">
+          <h2>Update this later if needed</h2>
+          <p class="muted">
+            If you later add accounts, analytics, subscriptions, a backend, Supabase, or other third-party services,
+            this policy should be updated before release.
+          </p>
+        </section>
+      </aside>
+    </section>
+
+    <div class="panel footer-note">
+      This page is written for Wiserflo’s current local-first setup as of March 15, 2026.
+    </div>
+  </main>
 </body>
 </html>
